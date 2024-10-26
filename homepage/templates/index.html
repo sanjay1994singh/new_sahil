@@ -41,15 +41,14 @@
             {% if forloop.counter0|divisibleby:5 %} <!-- Start a new slide every 5 items -->
             <div class="carousel-item {% if forloop.first %}active{% endif %}">
                 <div class="row">
-            {% endif %}
+                    {% endif %}
+                    <div class="col-2">
+                        <img src="{% if i.img %}{{ i.img.url }}{% endif %}" class="img-fluid" alt="{{ i.name }}">
+                        <p>{{ i.name }}</p>
+                    </div>
 
-            <!-- Category Image and Name -->
-            <div class="col-2">
-                <img src="{% if i.img %}{{ i.img.url }}{% endif %}" class="img-fluid" alt="{{ i.name }}">
-                <p>{{ i.name }}</p>
-            </div>
-
-            {% if forloop.counter|divisibleby:5 or forloop.last %} <!-- Close slide after every 5 items or at the end -->
+                    {% if forloop.counter|divisibleby:5 or forloop.last %}
+                    <!-- Close slide after every 5 items or at the end -->
                 </div>
             </div>
             {% endif %}

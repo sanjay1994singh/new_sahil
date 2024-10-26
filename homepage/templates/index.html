@@ -37,17 +37,22 @@
 <h2>Explore all categories</h2>
 <div id="categoryCarousel" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
-        {% for i in category|slice:":5" %} <!-- Groups of five categories per slide -->
-        <div class="carousel-item {% if forloop.first %}active{% endif %}">
-            <div class="row">
-                {% for cat in category %}
-                <div class="col-2">
-                    <img src="{% if cat.img %}{{ cat.img.url }}{% endif %}" class="img-fluid" alt="{{ cat.name }}">
-                    <p>{{ cat.name }}</p>
-                </div>
-                {% endfor %}
+        {% for i in category %}
+            {% if forloop.counter0|divisibleby:5 %} <!-- Start a new slide every 5 items -->
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="row">
+            {% endif %}
+
+            <!-- Category Image and Name -->
+            <div class="col-2">
+                <img src="{% if i.img %}{{ i.img.url }}{% endif %}" class="img-fluid" alt="{{ i.name }}">
+                <p>{{ i.name }}</p>
             </div>
-        </div>
+
+            {% if forloop.counter|divisibleby:5 or forloop.last %} <!-- Close slide after every 5 items or at the end -->
+                </div>
+            </div>
+            {% endif %}
         {% endfor %}
     </div>
 
